@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pico.css Tag Select</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Yohn/PicoCSS@2.2.4/css/pico.lime.css">
+  <link rel="stylesheet" href="tag-select.css">
+	<style>
+
+.demo-container {
+	margin-bottom: var(--pico-spacing);
+}
+
+.code-block {
+	background-color: var(--pico-muted-border-color);
+	padding: 0;
+	border-radius: var(--pico-border-radius);
+	margin: 0;
+	overflow:auto;
+}
+
+.code-block code {
+	white-space: pre;
+}
+
+
+.output {
+	margin-top: var(--pico-spacing);
+	font-family: monospace;
+	white-space: pre;
+}
+
+	</style>
+</head>
+<body>
+	<main class="container">
+		<h1>TagSelect Demo</h1>
+
+		<article>
+			<header><h2>Basic Example</h2></header>
+			<div class="demo-container">
+				<label for="basic-select">Tags (Basic):</label>
+				<select id="basic-select" multiple>
+					<option value="javascript">JavaScript</option>
+					<option value="html">HTML</option>
+					<option value="css">CSS</option>
+					<option value="react">React</option>
+					<option value="vue">Vue</option>
+					<option value="angular">Angular</option>
+					<option value="node">Node.js</option>
+					<option value="typescript">TypeScript</option>
+				</select>
+
+				<div class="output">
+					<strong>Selected Values:</strong>
+					<div id="basic-output"></div>
+				</div>
+			</div>
+
+			<div class="code-block">
+				<code>
+// Basic initialization
+const basicTagSelect = new TagSelect(document.getElementById('basic-select'));
+
+// Listen for changes
+document.getElementById('basic-select').addEventListener('change', function() {
+	document.getElementById('basic-output').textContent =
+		JSON.stringify(basicTagSelect.getValues(), null, 2);
+});
+				</code>
+			</div>
+		</article>
+		<hr>
+		<article>
+			<header><h2>Advanced Options</h2></header>
+			<div class="demo-container">
+				<label for="advanced-select">Tags (Advanced):</label>
+				<select id="advanced-select" multiple>
+					<option value="red" selected>Red</option>
+					<option value="blue">Blue</option>
+					<option value="green">Green</option>
+					<option value="yellow">Yellow</option>
+					<option value="purple">Purple</option>
+					<option value="orange">Orange</option>
+					<option value="black">Black</option>
+					<option value="white">White</option>
+				</select>
+
+				<div>
+					<button id="add-color">Add Pink</button>
+					<button id="remove-color">Remove Red</button>
+					<button id="clear-colors">Clear All</button>
+					<button id="refresh-control">Refresh</button>
+				</div>
+
+				<div class="output">
+					<strong>Selected Values:</strong>
+					<div id="advanced-output"></div>
+				</div>
+			</div>
+
+			<div class="code-block">
+				<code>
+// Advanced initialization with options
+const advancedTagSelect = new TagSelect(document.getElementById('advanced-select'), {
+	placeholder: 'Search or add colors...',
+	createPrompt: 'Add color: {tag}',
+	maxTags: 5,
+	minTags: 1,
+	noResultsText: 'No colors match your search',
+	onChange: function(values) {
+		document.getElementById('advanced-output').textContent =
+		JSON.stringify(values, null, 2);
+	}
+});
+
+// Handle button clicks
+document.getElementById('add-color').addEventListener('click', () => {
+	advancedTagSelect.add('pink', 'Pink');
+});
+
+document.getElementById('remove-color').addEventListener('click', () => {
+	advancedTagSelect.remove('red');
+});
+
+document.getElementById('clear-colors').addEventListener('click', () => {
+	advancedTagSelect.clear();
+});
+
+document.getElementById('refresh-control').addEventListener('click', () => {
+	advancedTagSelect.refresh();
+});
+				</code>
+			</div>
+		</article>
+		<hr>
+		<article>
+			<header><h2>Disabled New Tags</h2></header>
+			<div class="demo-container">
+				<label for="no-new-select">Tags (No New Tags):</label>
+				<select id="no-new-select" multiple>
+					<option value="apple">Apple</option>
+					<option value="banana">Banana</option>
+					<option value="orange">Orange</option>
+					<option value="grape">Grape</option>
+					<option value="kiwi">Kiwi</option>
+				</select>
+
+				<div class="output">
+					<strong>Selected Values:</strong>
+					<div id="no-new-output"></div>
+				</div>
+			</div>
+
+			<div class="code-block">
+				<code>
+// Disable creating new tags
+const noNewTagSelect = new TagSelect(document.getElementById('no-new-select'), {
+	allowNew: false,
+	placeholder: 'Select fruits (no new items allowed)...',
+	onChange: function(values) {
+		document.getElementById('no-new-output').textContent =
+		JSON.stringify(values, null, 2);
+	}
+});
+				</code>
+			</div>
+		</article>
+
+	</main>
+
+	<script src="tag-select.js"></script>
+	<script>
+
+// Prevent auto-initialization
+window.autoInitTagSelect = false;
+
+document.addEventListener("DOMContentLoaded", function () {
+	// Basic initialization
+	const basicTagSelect = new TagSelect(document.getElementById("basic-select"));
+
+	// Listen for changes
+	document
+		.getElementById("basic-select")
+		.addEventListener("change", function () {
+			document.getElementById("basic-output").textContent = JSON.stringify(
+				basicTagSelect.getValues(),
+				null,
+				2
+			);
+		});
+
+	// Advanced initialization with options
+	const advancedTagSelect = new TagSelect(
+		document.getElementById("advanced-select"),
+		{
+			placeholder: "Search or add colors...",
+			createPrompt: "Add color: {tag}",
+			maxTags: 5,
+			minTags: 1,
+			noResultsText: "No colors match your search",
+			onChange: function (values) {
+				document.getElementById("advanced-output").textContent = JSON.stringify(
+					values,
+					null,
+					2
+				);
+			}
+		}
+	);
+
+	// Handle button clicks
+	document.getElementById("add-color").addEventListener("click", () => {
+		advancedTagSelect.add("pink", "Pink");
+	});
+
+	document.getElementById("remove-color").addEventListener("click", () => {
+		advancedTagSelect.remove("red");
+	});
+
+	document.getElementById("clear-colors").addEventListener("click", () => {
+		advancedTagSelect.clear();
+	});
+
+	document.getElementById("refresh-control").addEventListener("click", () => {
+		advancedTagSelect.refresh();
+	});
+
+	// Disable creating new tags
+	const noNewTagSelect = new TagSelect(
+		document.getElementById("no-new-select"),
+		{
+			allowNew: false,
+			placeholder: "Select fruits (no new items allowed)...",
+			onChange: function (values) {
+				document.getElementById("no-new-output").textContent = JSON.stringify(
+					values,
+					null,
+					2
+				);
+			}
+		}
+	);
+
+	// Initialize outputs
+	document.getElementById("basic-output").textContent = JSON.stringify(
+		basicTagSelect.getValues(),
+		null,
+		2
+	);
+	document.getElementById("advanced-output").textContent = JSON.stringify(
+		advancedTagSelect.getValues(),
+		null,
+		2
+	);
+	document.getElementById("no-new-output").textContent = JSON.stringify(
+		noNewTagSelect.getValues(),
+		null,
+		2
+	);
+});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+.tag-select-container {
+	display: flex;
+	flex-wrap: wrap;
+	border: var(--pico-border-width) solid var(--pico-form-element-border-color);
+	border-radius: var(--pico-border-radius);
+	padding: var(--pico-form-element-spacing-vertical);
+	min-height: var(--pico-form-element-spacing-vertical);
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+	cursor: text;
+}
+
+.tag-input {
+	flex: 1;
+	min-width: 100px;
+	border: none;
+	outline: none;
+	padding: var(--pico-form-element-spacing-vertical);
+	margin: 2px !important;
+	background: transparent;
+	color: var(--pico-color);
+	font-size: var(--pico-font-size);
+	font-family: var(--pico-font-family);
+}
+
+.tag-item {
+	background-color: var(--pico-primary-hover);
+	border-radius: var(--pico-border-radius);
+	padding: 0.2rem 0.5rem;
+	margin: 2px;
+	display: inline-flex;
+	align-items: center;
+	color: var(--pico-primary-inverse);
+	font-size: var(--pico-font-size);
+}
+
+.tag-remove {
+	margin-left: 0.35rem;
+	cursor: pointer;
+	color: var(--pico-primary-inverse);
+	font-weight: bold;
+}
+
+.tag-dropdown {
+	display: none;
+	position: absolute;
+	top: 99%;
+	left: calc(var(--pico-border-width) * -1);
+	right: calc(var(--pico-border-width) * -1);
+	background: var(--pico-background-color);
+	border: var(--pico-border-width) solid var(--pico-form-element-border-color);
+	border-top: none;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 1000;
+	border-bottom-left-radius: var(--pico-border-radius);
+	border-bottom-right-radius: var(--pico-border-radius);
+	box-shadow: var(--pico-card-box-shadow);
+}
+
+.tag-dropdown.show {
+	display: block;
+}
+
+.dropdown-item {
+	padding: var(--pico-spacing);
+	cursor: pointer;
+}
+
+.dropdown-item:hover,
+.dropdown-item.highlighted {
+	background-color: var(--pico-muted-border-color);
+}
+
+.original-select {
+	position: absolute;
+	opacity: 0;
+	height: 0;
+	width: 0;
+	pointer-events: none;
+}
