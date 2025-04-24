@@ -102,7 +102,7 @@ class TagSelect {
 
 		// Close dropdown when clicking outside
 		document.addEventListener("click", (e) => {
-			if (!this.container.contains(e.target)) {
+			if (!this.container.contains(e.target) && !e.target.classList.contains("dropdown-item")) {
 				this.dropdown.classList.remove("show");
 			}
 		});
@@ -475,13 +475,6 @@ class TagSelect {
 
 		// Repopulate dropdown
 		this.populateDropdown(this.input.value);
-	}
-
-	/**
-	 * Set focus to the input
-	 */
-	focus() {
-		this.input.focus();
 	}
 }
 
